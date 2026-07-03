@@ -13,7 +13,7 @@ Other common variations:
 
 ```bash
 # Global install to a specific agent, non-interactive
-npx skills add LiuYihey/Cursor-loop-skill -a cursor -g -y
+npx skills add LiuYihey/Cursor-loop-skill -a trae -g -y
 npx skills add LiuYihey/Cursor-loop-skill -a claude-code -g -y
 npx skills add LiuYihey/Cursor-loop-skill -a codex -g -y
 
