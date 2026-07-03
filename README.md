@@ -1,6 +1,8 @@
 # Loop Skill
 
-A host-agnostic port of Cursor IDE's built-in `/loop` skill, documented around a 4-primitive contract so it runs on any agent that exposes a background process + output-pattern wake (Cursor, Claude Code, Codex, OpenCode, etc.).
+> **Run a prompt on a recurring or variable interval** — a generic, host-agnostic `/loop` for any agent that exposes a background process + output-pattern wake.
+
+Documented around a 4-primitive contract (`spawn_loop` / `read_output` / `terminate` / `arm_wake`) so the skill body is a portable spec and per-host tool mappings live in `references/<host>.md`.
 
 ## Install
 
