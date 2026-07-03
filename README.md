@@ -1,18 +1,49 @@
-# Cursor Loop Skill
+# Loop Skill
 
-A host-agnostic `/loop` skill. Drop it into any agent that exposes a background-process + output-wake primitive and the `/loop [interval] <prompt>` syntax starts working.
+A host-agnostic port of Cursor IDE's built-in `/loop` skill, documented around a 4-primitive contract so it runs on any agent that exposes a background process + output-pattern wake (Cursor, Claude Code, Codex, OpenCode, etc.).
 
 ## Install
 
-- **Cursor IDE**: copy `SKILL.md` and `references/` into `.cursor/skills/loop/` of your project (or your global skills dir).
-- **Other agents**: read `SKILL.md` for the body, then read `references/primitives.md` to learn the 4-primitive contract. Write a `references/<your-host>.md` mapping those primitives to your host's tool names (shape described in `SKILL.md` §"Adding a Per-Host Mapping").
+```bash
+# Project install (interactive; the CLI detects which agents you have)
+npx skills add LiuYihey/Cursor-loop-skill
+```
+
+Other common variations:
+
+```bash
+# Global install to a specific agent, non-interactive
+npx skills add LiuYihey/Cursor-loop-skill -a cursor -g -y
+npx skills add LiuYihey/Cursor-loop-skill -a claude-code -g -y
+npx skills add LiuYihey/Cursor-loop-skill -a codex -g -y
+
+# Preview the skills in this repo without installing
+npx skills add LiuYihey/Cursor-loop-skill --list
+```
+
+Flags: `-a <agent>` target a specific agent, `-g` install globally to your user dir, `-y` skip prompts, `--all` install to every detected agent. See [`vercel-labs/skills`](https://github.com/vercel-labs/skills) for the full reference.
+
+## Usage
+
+Once installed, the agent understands:
+
+```
+/loop 5m check the deploy status
+/loop 30s ping the test endpoint
+/loop run the build every 10 minutes
+```
+
+- **Leading interval** — `/loop <interval> <prompt>` (fixed cadence).
+- **Trailing interval** — `/loop <prompt> every <interval>` is also accepted.
+- **No interval** — `/loop <prompt>` puts the agent in dynamic mode (self-paced).
+- **Empty prompt** — prints `Usage: /loop [interval] <prompt>`.
 
 ## Files
 
 - `SKILL.md` — the skill body. The only file the agent runtime must load.
-- `references/primitives.md` — the 4-primitive host-agnostic contract (`spawn_loop` / `read_output` / `terminate` / `arm_wake`), plus the sentinel + payload convention, time parsing, capability detection, and cleanup discipline.
+- `references/primitives.md` — the 4-primitive host-agnostic contract (`spawn_loop` / `read_output` / `terminate` / `arm_wake`), plus the sentinel + payload convention, two delivery models (push / pull), time parsing, capability detection, and cleanup discipline.
 - `references/shells.md` — ready-to-paste inner-loop templates for bash, sh, zsh, PowerShell, fish, plus event-watcher variants for dynamic schedules.
 
-## License
+## Origin
 
-See upstream Cursor's `loop` skill (`.cursor/skills/loop/SKILL.md` in any Cursor install) for the original. This repo adapts that skill to a host-agnostic shape.
+Extracted from the `loop` skill that ships built into Cursor IDE, redocumented around a 4-primitive contract rather than Cursor's `Shell` tool. Cursor users don't need to install this to get `/loop` — it is already built in. Install this version if you want the generic primitive spec, or if you want to override Cursor's built-in with this version.
