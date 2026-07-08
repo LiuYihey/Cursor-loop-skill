@@ -11,18 +11,6 @@ Documented around a 4-primitive contract (`spawn_loop` / `read_output` / `termin
 npx skills add LiuYihey/Cursor-loop-skill
 ```
 
-Other common variations:
-
-```bash
-# Global install to a specific agent, non-interactive
-npx skills add LiuYihey/Cursor-loop-skill -a trae -g -y
-npx skills add LiuYihey/Cursor-loop-skill -a claude-code -g -y
-npx skills add LiuYihey/Cursor-loop-skill -a codex -g -y
-
-# Preview the skills in this repo without installing
-npx skills add LiuYihey/Cursor-loop-skill --list
-```
-
 Flags: `-a <agent>` target a specific agent, `-g` install globally to your user dir, `-y` skip prompts, `--all` install to every detected agent. See [`vercel-labs/skills`](https://github.com/vercel-labs/skills) for the full reference.
 
 ## Usage
